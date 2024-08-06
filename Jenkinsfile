@@ -15,13 +15,11 @@ pipeline{
             }
         }
 stage('Docker Build') {
-       agent any
        steps {
         sh 'docker build -t ericsson/springboot-maven-course-micro-svc:latest .'
       }
     }
        stage('Docker Push') {
-      agent any
       steps {
         withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
           sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
